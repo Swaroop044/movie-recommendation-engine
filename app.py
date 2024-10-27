@@ -38,8 +38,12 @@ def get_netflix_url(movie_title):
     return f"https://www.justwatch.com/in/search?q={search_query}"
     # https: // www.justwatch.com / in / search?q = aliens
     # return f"https://www.netflix.com/in/title/81476453"
-st.title('Movie Recommender System')
+# st.title('Cinematic Recommendation Engine')
 
+st.markdown(
+    "<h1 style='text-align: center; font-size: 36px;'>Cinematic Recommendation Engine</h1>",
+    unsafe_allow_html=True
+)
 selected_movie_name = st.selectbox(
     'Select a movie:',
     movies['title'].values
