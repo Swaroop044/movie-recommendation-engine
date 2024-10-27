@@ -31,7 +31,13 @@ similarity = pickle.load(open('similarity.pkl', 'rb'))
 
 # Check the columns of the DataFrame
 # st.write(movies.columns)  # Include this line to verify the columns
-
+def get_netflix_url(movie_title):
+    # Replace spaces with "+" to create a query for Netflix search page
+    search_query = movie_title.replace(" ", "+")
+    # Construct the search URL for Netflix (you may need to adjust this)
+    return f"https://www.justwatch.com/in/search?q={search_query}"
+    # https: // www.justwatch.com / in / search?q = aliens
+    # return f"https://www.netflix.com/in/title/81476453"
 st.title('Movie Recommender System')
 
 selected_movie_name = st.selectbox(
@@ -43,22 +49,28 @@ if st.button('Recommend'):
     names, posters = recommend(selected_movie_name)
     col1, col2, col3, col4, col5 = st.columns(5)
 
-    with col1:
-        st.text(names[0])
-        st.image(posters[0])
+    for i, col in enumerate([col1, col2, col3, col4, col5]):
+        with col:
+            st.markdown(f"[![{names[i]}]({posters[i]})]({get_netflix_url(names[i])})", unsafe_allow_html=True)
+            st.text(names[i])
 
-    with col2:
-        st.text(names[1])
-        st.image(posters[1])
-
-    with col3:
-        st.text(names[2])
-        st.image(posters[2])
-
-    with col4:
-        st.text(names[3])
-        st.image(posters[3])
-
-    with col5:
-        st.text(names[4])
-        st.image(posters[4])
+    # with col1:
+    #     st.text(names[0])
+    #     st.markdown(f"[![{names[i]}]({posters[i]})]({get_netflix_url(names[i])})", unsafe_allow_html=True)
+    #     st.image(posters[0])
+    #
+    # with col2:
+    #     st.text(names[1])
+    #     st.image(posters[1])
+    #
+    # with col3:
+    #     st.text(names[2])
+    #     st.image(posters[2])
+    #
+    # with col4:
+    #     st.text(names[3])
+    #     st.image(posters[3])
+    #
+    # with col5:
+    #     st.text(names[4])
+    #     st.image(posters[4])
